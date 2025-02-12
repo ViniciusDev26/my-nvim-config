@@ -6,7 +6,7 @@ if not (vim.env.LAZY or (vim.uv or vim.loop).fs_stat(lazypath)) then
   vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable", lazypath })
 end
 vim.opt.rtp:prepend(lazypath)
-vim.opt.clipboard = "unnamedplus" 
+vim.opt.clipboard = "unnamedplus"
 
 -- validate that lazy is available
 if not pcall(require, "lazy") then
@@ -19,8 +19,10 @@ end
 require "lazy_setup"
 require "polish"
 
-function _G.set_terminal_keymaps()
-  local opts = { noremap = true }
-  vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], opts)
-end
-vim.cmd "autocmd! TermOpen term://* lua set_terminal_keymaps()"
+-- Autoformat on save for typescript and javascript
+vim.api.nvim_create_autocmd("BufWritePost", {
+  pattern = { "*.ts", "*.tsx", "*.js", "*.jsx", "*.json" },
+  callback = function()
+    vim.cmd "silent! !pnpm lint" -- Corrige os erros automaticamente
+  end,
+})
