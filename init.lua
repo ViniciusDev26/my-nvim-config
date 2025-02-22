@@ -20,9 +20,9 @@ require "lazy_setup"
 require "polish"
 
 -- Autoformat on save for typescript and javascript
-vim.api.nvim_create_autocmd("BufWritePost", {
-  pattern = { "*.ts", "*.tsx", "*.js", "*.jsx", "*.json" },
-  callback = function()
-    vim.cmd "silent! !pnpm lint" -- Corrige os erros automaticamente
-  end,
-})
+-- vim.api.nvim_create_autocmd("BufWritePost", {
+--   pattern = { "*.ts", "*.tsx", "*.js", "*.jsx", "*.json" },
+--   callback = function()
+--     vim.cmd "silent! !pnpm lint" -- Corrige os erros automaticamente
+--   end,
+-- })
